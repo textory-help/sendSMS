@@ -1,0 +1,19 @@
+{
+  "name": "textory-sendsms-nodejs-examples",
+  "version": "1.0.0",
+  "description": "Example Node.js client for the Textory Open API.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "phone": "node send-phone.js",
+    "web": "node send-web.js",
+    "balance": "node get-balance.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "uuid": "^9.0.0"
+  }
+}

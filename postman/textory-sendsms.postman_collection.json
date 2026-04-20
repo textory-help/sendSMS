@@ -1,0 +1,91 @@
+{
+  "info": {
+    "_postman_id": "8f3c2d4a-0000-4000-9000-textory000001",
+    "name": "Textory sendSMS Open API",
+    "description": "Send SMS/LMS/MMS/Kakao via Textory Open API. Set variable `TEXTORY_API_KEY` at the collection level before running.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://openapi.textory.io", "type": "string" },
+    { "key": "TEXTORY_API_KEY", "value": "sk_live_replace_me", "type": "string" },
+    { "key": "TEXTORY_SENDER", "value": "+821098765432", "type": "string" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{TEXTORY_API_KEY}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "Send Phone (global)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/openapi/v1/messages/phone", "host": ["{{baseUrl}}"], "path": ["openapi", "v1", "messages", "phone"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": \"{{$guid}}\",\n  \"recipients\": [\n    { \"phoneNumber\": \"+14155551234\", \"name\": \"Alice\" }\n  ],\n  \"contents\": \"Hi {{name}}, your verification code is 917043.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Send Web (Korea only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/openapi/v1/messages/web", "host": ["{{baseUrl}}"], "path": ["openapi", "v1", "messages", "web"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": \"{{$guid}}\",\n  \"sender\": \"{{TEXTORY_SENDER}}\",\n  \"recipients\": [\n    { \"phoneNumber\": \"+821012345678\" }\n  ],\n  \"contents\": \"배송이 시작되었습니다. 감사합니다.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Send KakaoTalk (Korea only — Phase 2)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/openapi/v1/messages/kakao", "host": ["{{baseUrl}}"], "path": ["openapi", "v1", "messages", "kakao"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": \"{{$guid}}\",\n  \"senderKey\": \"paste-senderKey\",\n  \"templateCode\": \"TPL_ORDER_SHIPPED\",\n  \"recipients\": [\n    { \"phoneNumber\": \"+821012345678\", \"variables\": { \"orderNo\": \"A-1234\" } }\n  ],\n  \"contents\": \"[Alice Shop]\\n주문 A-1234이(가) 출고되었습니다.\",\n  \"fallbackType\": \"sms\",\n  \"fallbackSender\": \"{{TEXTORY_SENDER}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get message status",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/openapi/v1/messages/{{messageId}}", "host": ["{{baseUrl}}"], "path": ["openapi", "v1", "messages", "{{messageId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Senders",
+      "item": [
+        {
+          "name": "List registered senders",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/openapi/v1/senders", "host": ["{{baseUrl}}"], "path": ["openapi", "v1", "senders"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "Credit balance",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/openapi/v1/account/balance", "host": ["{{baseUrl}}"], "path": ["openapi", "v1", "account", "balance"] }
+          }
+        }
+      ]
+    }
+  ]
+}
