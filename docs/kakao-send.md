@@ -66,4 +66,4 @@ curl -X POST https://openapi.textory.io/openapi/v1/messages/kakao \
 - [Kakao AlimTalk documentation (Korean)](https://kakaobusiness.gitbook.io/main/ad/bizmessage/notice-friend)
 - [Textory Kakao channel setup](https://www.textory.io/setting-kakao)
 
-*This endpoint is documented for upcoming release. Contact support@textory.io for early access.*
+*This endpoint is documented for upcoming release. Contact help@textory.io for early access.*

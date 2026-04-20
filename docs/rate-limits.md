@@ -78,7 +78,7 @@ Returns your current month's sent counts by channel.
 ## Requesting a higher quota
 
 If your default quotas aren't enough, open an issue in the GitHub repository or email
-support@textory.io with:
+help@textory.io with:
 
 - Your account email or `keyId` prefix (do **not** share the full API key).
 - Expected peak req/min and daily volume.

@@ -16,7 +16,7 @@ info:
     url: https://opensource.org/licenses/MIT
   contact:
     name: Textory Support
-    email: support@textory.io
+    email: help@textory.io
     url: https://textory.io
 servers:
   - url: https://openapi.textory.io
