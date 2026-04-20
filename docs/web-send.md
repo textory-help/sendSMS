@@ -37,7 +37,7 @@ Content-Type: application/json
 | Field | Type | Required | Notes |
 |---|---|---|---|
 | `sender` | string | ✅ | Registered sender number. E.164 or `010xxxxxxxx`. |
-| `recipients[]` | array | ✅ | 1–1000 recipients. Only `+82` / Korean local numbers accepted. |
+| `recipients[]` | array | ✅ | 1–50 recipients (split larger sends into multiple calls). Only `+82` / Korean local numbers accepted. |
 | `contents` | string | ✅ | UTF-8. |
 | `title` | string | conditional | Required for LMS/MMS. |
 | `contentsType` | enum | ❌ | `sms`, `lms`, `mms`. Auto-detected if omitted. |
@@ -95,7 +95,7 @@ an opt-out number. Textory does not auto-insert these. You are responsible for c
 ## Limits
 
 - **Country:** Korea only. Non-`+82` recipients are rejected.
-- **Recipients per request:** 1000.
+- **Recipients per request:** 50. For larger sends, split into multiple API calls — this per-request cap protects the API server from sudden load spikes.
 - **LMS body:** 2000 bytes.
 - **MMS images:** 3 × 300KB, JPG/PNG.
 - **Rate limits:** configurable per API key on the dashboard.

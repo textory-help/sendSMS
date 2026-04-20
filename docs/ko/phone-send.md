@@ -33,7 +33,7 @@ Content-Type: application/json
 
 | 필드 | 타입 | 필수 | 비고 |
 |---|---|---|---|
-| `recipients[]` | array | ✅ | 1–1000 개 |
+| `recipients[]` | array | ✅ | 1–50명 (초과 시 여러 번 호출로 분할) |
 | `recipients[].phoneNumber` | string | ✅ | E.164 (`+821012345678`) 권장, 국내 형식도 허용 |
 | `recipients[].name` | string | ❌ | `{{name}}` 템플릿 변수용 |
 | `recipients[].variables` | object | ❌ | 수신자별 `{{key}}` 값 |
@@ -116,7 +116,7 @@ async function send() {
 ## 제한 사항
 
 - **메시지 크기**: 90 bytes(SMS) → 초과 시 LMS(2000 bytes) 로 자동 승격 → 첨부 시 MMS
-- **요청당 수신자**: 1000명
+- **요청당 수신자**: 50명. 대량 발송은 여러 번 호출로 분할 — API 서버의 순간 부하를 방지하기 위한 상한
 - **속도**: 페어링된 폰의 통신사 규정 + API 키 쿼터에 따름
 - **지역**: 폰 통신사의 로밍 정책에 따름. 미국→한국, 한국→해외 모두 통신사 허용 시 동작
 

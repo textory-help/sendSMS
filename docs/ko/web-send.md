@@ -37,7 +37,7 @@ Content-Type: application/json
 | 필드 | 타입 | 필수 | 비고 |
 |---|---|---|---|
 | `sender` | string | ✅ | 등록·승인된 발신번호. E.164 또는 `010xxxxxxxx` |
-| `recipients[]` | array | ✅ | 1–1000명. `+82` 또는 국내 형식만 허용 |
+| `recipients[]` | array | ✅ | 1–50명 (초과 시 여러 번 호출로 분할). `+82` 또는 국내 형식만 허용 |
 | `contents` | string | ✅ | UTF-8 |
 | `title` | string | 조건부 | LMS/MMS 에 필수 |
 | `contentsType` | enum | ❌ | `sms`, `lms`, `mms`. 미지정 시 자동 판별 |
@@ -91,7 +91,7 @@ curl https://openapi.textory.io/openapi/v1/account/balance \
 ## 제한 사항
 
 - **국가**: 한국 전용. `+82` 가 아닌 번호는 거부됨
-- **요청당 수신자**: 1000명
+- **요청당 수신자**: 50명. 대량 발송은 여러 번 호출로 분할 — API 서버 순간 부하 방지용 상한
 - **LMS 본문**: 2000 bytes
 - **MMS 이미지**: 3장 × 300KB, JPG/PNG
 - **Rate limit**: 키별 대시보드에서 설정 가능

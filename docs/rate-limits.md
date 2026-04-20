@@ -12,7 +12,7 @@ at [https://www.textory.io/setting-api-keys](https://www.textory.io/setting-api-
 | `monthly` | Messages sent per billing month. Default 300,000. |
 
 Send endpoints count the **request**, not individual recipients — a single request with
-1000 recipients counts as one toward `per_minute` but 1000 toward `daily`/`monthly`.
+50 recipients counts as one toward `per_minute` but 50 toward `daily`/`monthly`.
 
 ## Throttling response
 
@@ -40,8 +40,8 @@ Content-Type: application/json
 
 ### 1. Batch recipients
 
-A single request accepts up to 1000 recipients. Batching into larger requests is much more
-efficient than sending one call per recipient.
+A single request accepts up to 50 recipients. Batch multiple recipients per call instead of
+one call per recipient; for larger sends, split into multiple 50-recipient calls.
 
 ### 2. Use idempotency keys
 

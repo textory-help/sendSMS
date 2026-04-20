@@ -34,7 +34,7 @@ Content-Type: application/json
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `recipients[]` | array | ✅ | 1–1000 entries |
+| `recipients[]` | array | ✅ | 1–50 entries (split larger sends into multiple calls) |
 | `recipients[].phoneNumber` | string | ✅ | E.164 (`+821012345678`) preferred; local format accepted |
 | `recipients[].name` | string | ❌ | Used for `{{name}}` template variable |
 | `recipients[].variables` | object | ❌ | Per-recipient `{{key}}` values |
@@ -118,7 +118,7 @@ Poll `GET /openapi/v1/messages/{messageId}` for status.
 ## Limits
 
 - **Message size:** 90 bytes (SMS) → auto-upgrade to LMS (2000 bytes) → MMS with attachments.
-- **Recipients per request:** 1000.
+- **Recipients per request:** 50. Split larger sends into multiple API calls — this per-request cap protects the API server from sudden load spikes.
 - **Rate:** depends on your paired phone's carrier and your API key's quota.
 - **Region:** bound by your phone's carrier roaming policy. US→KR works; KR→International works
   as long as your carrier permits.
