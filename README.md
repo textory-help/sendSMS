@@ -133,7 +133,6 @@ Per-API-key limits are configurable when you create a key (daily / monthly / per
 
 - **Issues / Bug reports**: open a GitHub issue in this repository.
 - **Email**: help@textory.io
-- **Status page**: [https://status.textory.io](https://status.textory.io)
 
 ## License
 
