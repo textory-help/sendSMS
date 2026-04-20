@@ -16,7 +16,7 @@ cheaper than SMS and looks more trustworthy to Korean recipients, but onboarding
 5. **Sufficient credits** on your Textory account (Kakao AlimTalk is cheaper than SMS but
    still deducts credit).
 
-Complete onboarding at [https://pink.textory.io](https://pink.textory.io) → **Settings → Kakao Channel**.
+Complete onboarding at [https://www.textory.io](https://www.textory.io) → **Settings → Kakao Channel**.
 
 ## Request (preview — coming in Phase 2)
 
@@ -64,6 +64,6 @@ curl -X POST https://openapi.textory.io/openapi/v1/messages/kakao \
 ## Links
 
 - [Kakao AlimTalk documentation (Korean)](https://kakaobusiness.gitbook.io/main/ad/bizmessage/notice-friend)
-- [Textory Kakao channel setup](https://pink.textory.io/setting-kakao)
+- [Textory Kakao channel setup](https://www.textory.io/setting-kakao)
 
 *This endpoint is documented for upcoming release. Contact support@textory.io for early access.*

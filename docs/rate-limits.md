@@ -1,7 +1,7 @@
 # Rate Limits & Quotas
 
 Every API key has its own quota, configured when the key is created and adjustable
-at [https://pink.textory.io/setting-api-keys](https://pink.textory.io/setting-api-keys).
+at [https://www.textory.io/setting-api-keys](https://www.textory.io/setting-api-keys).
 
 ## Quota types
 

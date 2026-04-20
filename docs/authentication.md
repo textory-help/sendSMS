@@ -4,7 +4,7 @@ All requests to `https://openapi.textory.io` require an API key sent as a Bearer
 
 ## Get a key
 
-1. Sign in at [https://pink.textory.io](https://pink.textory.io).
+1. Sign in at [https://www.textory.io](https://www.textory.io).
 2. Navigate to **Settings → API Keys** (`/setting-api-keys`).
 3. Click **New API Key**.
 4. Select the permissions the key should have:

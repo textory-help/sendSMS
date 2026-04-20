@@ -17,7 +17,7 @@ from your account balance.
 
 Korean carriers require every outbound sender number to be pre-approved:
 
-1. Go to [https://pink.textory.io](https://pink.textory.io) → **Settings → Sender Numbers**.
+1. Go to [https://www.textory.io](https://www.textory.io) → **Settings → Sender Numbers**.
 2. Register the phone number you want to send from.
 3. Upload the required documentation (business registration for corporate numbers,
    ID + carrier bill for personal numbers).

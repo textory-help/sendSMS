@@ -8,7 +8,7 @@ info:
     - **Base URL:** `https://openapi.textory.io`
     - **Auth:** `Authorization: Bearer sk_live_xxxxxxxxxxxx`
 
-    Get an API key at [https://pink.textory.io/setting-api-keys](https://pink.textory.io/setting-api-keys).
+    Get an API key at [https://www.textory.io/setting-api-keys](https://www.textory.io/setting-api-keys).
 
     Source of this spec and code samples: [github.com/textory/sendSMS](https://github.com/textory/sendSMS)
   license:
@@ -229,7 +229,7 @@ paths:
         Returns caller IDs registered and approved for this account. Required before
         calling `/messages/web` or `/messages/kakao`.
 
-        Register new numbers at [https://pink.textory.io](https://pink.textory.io) —
+        Register new numbers at [https://www.textory.io](https://www.textory.io) —
         Settings → Sender Numbers. The carrier approval process takes 1–3 business days.
       operationId: listSenders
       responses:
@@ -276,7 +276,7 @@ components:
       bearerFormat: sk_live_xxx
       description: |
         Provide your API key as `Authorization: Bearer sk_live_xxxxxxxxxxxx`.
-        Get one at [https://pink.textory.io/setting-api-keys](https://pink.textory.io/setting-api-keys).
+        Get one at [https://www.textory.io/setting-api-keys](https://www.textory.io/setting-api-keys).
 
   schemas:
     Recipient:

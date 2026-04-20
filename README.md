@@ -20,7 +20,7 @@ own carrier connection. No region restriction, no pre-registered sender number r
 
 ### 1) Get an API key
 
-1. Sign in to [https://pink.textory.io](https://pink.textory.io)
+1. Sign in to [https://www.textory.io](https://www.textory.io)
 2. Visit **Settings → API Keys** (`/setting-api-keys`)
 3. Click **New API Key**, choose permissions (`phone_send`, `web_send`), and copy the generated key. It starts with `sk_live_`.
 4. Store it in an environment variable (`TEXTORY_API_KEY`). Never hard-code keys in source.
