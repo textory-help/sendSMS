@@ -30,6 +30,8 @@ tags:
     description: Registered sender numbers required by web and Kakao channels.
   - name: Account
     description: Credit balance and usage.
+  - name: Attachments
+    description: Upload JPG images for MMS (web channel).
 
 paths:
   /openapi/v1/messages/phone:
@@ -268,6 +270,64 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 
+  /openapi/v1/attachments:
+    post:
+      tags: [Attachments]
+      summary: Upload JPG images for MMS
+      description: |
+        Upload 1–3 JPG images to be used as MMS attachments in a subsequent
+        `POST /openapi/v1/messages/web` call. The response includes the hosted
+        `url` for each file — pass it back in the `attachments[]` array of the
+        send request.
+
+        **Constraints**
+        - JPG (image/jpeg) only — other formats are rejected.
+        - Up to **3 files** per upload.
+        - Total combined size **≤ 1 MB** (1,048,576 bytes).
+
+        **Required permission:** `web_send`
+      operationId: uploadAttachments
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: One or more JPG files (field name `file`, repeat for multiple).
+      responses:
+        '200':
+          description: Uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: { type: boolean }
+                  data:
+                    type: object
+                    properties:
+                      attachments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            attachmentId: { type: string, example: "a1b2c3d4e5f6" }
+                            url: { type: string, example: "https://files.textory.io/images/68f2.../a1b2c3d4e5f6.jpg" }
+                            size: { type: integer, example: 123456 }
+                            filename: { type: string, example: "photo.jpg" }
+                      totalBytes: { type: integer, example: 123456 }
+                      count: { type: integer, example: 1 }
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
 components:
   securitySchemes:
     BearerAuth:
@@ -325,9 +385,20 @@ components:
           description: Leave blank for auto-detect based on length/attachments.
         attachments:
           type: array
-          description: MMS image URLs (max 3). Must be HTTPS and publicly accessible.
-          items: { type: string, format: uri }
+          description: |
+            MMS attachments (max 3, total ≤ 1 MB, JPG only). Each entry must reference
+            a file previously uploaded via `POST /openapi/v1/attachments`. External URLs
+            are not allowed.
           maxItems: 3
+          items:
+            type: object
+            required: [url]
+            properties:
+              url:
+                type: string
+                format: uri
+                description: URL returned by `/openapi/v1/attachments` (must be on files.textory.io).
+                example: "https://files.textory.io/images/68f2.../a1b2c3d4.jpg"
         reservedAt:
           type: string
           format: date-time

@@ -41,7 +41,7 @@ Content-Type: application/json
 | `contents` | string | ✅ | UTF-8 |
 | `title` | string | 조건부 | LMS/MMS 에 필수 |
 | `contentsType` | enum | ❌ | `sms`, `lms`, `mms`. 미지정 시 자동 판별 |
-| `attachments[]` | array | ❌ | MMS 이미지 (HTTPS URL, 최대 3개, 각 300KB) |
+| `attachments[]` | array | ❌ | MMS 첨부. 먼저 `POST /openapi/v1/attachments` 로 업로드한 뒤 반환된 `url` 을 전달. 최대 3개, **합계 ≤ 1 MB**, JPG만 |
 | `reservedAt` | ISO 8601 | ❌ | 예약 발송 |
 | `clientId` | string | 권장 | 멱등 키 |
 
@@ -60,6 +60,48 @@ curl -X POST https://openapi.textory.io/openapi/v1/messages/web \
     "contents": "배송이 시작되었습니다. 감사합니다."
   }'
 ```
+
+## MMS 발송 흐름 (2단계: 업로드 → 발송)
+
+```bash
+# 1) JPG 업로드 → 호스팅 URL 반환
+curl -X POST https://openapi.textory.io/openapi/v1/attachments \
+  -H "Authorization: Bearer $TEXTORY_API_KEY" \
+  -F "file=@photo.jpg"
+
+# 응답
+# {
+#   "success": true,
+#   "data": {
+#     "attachments": [
+#       { "attachmentId": "a1b2...", "url": "https://files.textory.io/images/<uid>/a1b2.jpg", "size": 87234, "filename": "photo.jpg" }
+#     ],
+#     "totalBytes": 87234,
+#     "count": 1
+#   }
+# }
+
+# 2) 반환된 URL 로 MMS 발송
+curl -X POST https://openapi.textory.io/openapi/v1/messages/web \
+  -H "Authorization: Bearer $TEXTORY_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sender": "+821098765432",
+    "recipients": [{ "phoneNumber": "+821012345678" }],
+    "contents": "사진을 확인해 주세요.",
+    "title": "배송 확인",
+    "attachments": [
+      { "url": "https://files.textory.io/images/<uid>/a1b2.jpg" }
+    ]
+  }'
+```
+
+**첨부 제약**
+
+- JPG(image/jpeg) 만 허용. PNG/GIF 등 다른 포맷은 `unsupported_file_type` 으로 거부
+- **메시지당 최대 3개**
+- **전체 크기 합 ≤ 1 MB**
+- `/openapi/v1/attachments` 가 생성하지 않은 외부 URL은 `invalid_attachment` 로 거부
 
 ## 메시지 타입 자동 판별
 

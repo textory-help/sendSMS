@@ -41,7 +41,7 @@ Content-Type: application/json
 | `contents` | string | ✅ | UTF-8. |
 | `title` | string | conditional | Required for LMS/MMS. |
 | `contentsType` | enum | ❌ | `sms`, `lms`, `mms`. Auto-detected if omitted. |
-| `attachments[]` | array | ❌ | MMS images (HTTPS URL, max 3, 300KB each). |
+| `attachments[]` | array | ❌ | MMS attachments — upload via `POST /openapi/v1/attachments` first, then pass the returned `url`. Max 3 files, **combined ≤ 1 MB**, JPG only. |
 | `reservedAt` | ISO 8601 | ❌ | Schedule. |
 | `clientId` | string | recommended | Idempotency key. |
 
@@ -60,6 +60,48 @@ curl -X POST https://openapi.textory.io/openapi/v1/messages/web \
     "contents": "배송이 시작되었습니다. 감사합니다."
   }'
 ```
+
+## MMS flow (two-step: upload → send)
+
+```bash
+# 1) Upload JPG(s) — returns hosted URLs
+curl -X POST https://openapi.textory.io/openapi/v1/attachments \
+  -H "Authorization: Bearer $TEXTORY_API_KEY" \
+  -F "file=@photo.jpg"
+
+# Response
+# {
+#   "success": true,
+#   "data": {
+#     "attachments": [
+#       { "attachmentId": "a1b2...", "url": "https://files.textory.io/images/<uid>/a1b2.jpg", "size": 87234, "filename": "photo.jpg" }
+#     ],
+#     "totalBytes": 87234,
+#     "count": 1
+#   }
+# }
+
+# 2) Send MMS using that URL
+curl -X POST https://openapi.textory.io/openapi/v1/messages/web \
+  -H "Authorization: Bearer $TEXTORY_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sender": "+821098765432",
+    "recipients": [{ "phoneNumber": "+821012345678" }],
+    "contents": "사진을 확인해 주세요.",
+    "title": "배송 확인",
+    "attachments": [
+      { "url": "https://files.textory.io/images/<uid>/a1b2.jpg" }
+    ]
+  }'
+```
+
+**Attachment constraints**
+
+- JPG (image/jpeg) only. PNG/GIF/other formats rejected with `unsupported_file_type`.
+- **Max 3 files per message**.
+- **Total size ≤ 1 MB** across all attachments in one upload.
+- URLs not produced by `/openapi/v1/attachments` are rejected (`invalid_attachment`).
 
 ## Message type auto-detection
 
