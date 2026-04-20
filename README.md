@@ -7,6 +7,8 @@
 > Send SMS / LMS / MMS / KakaoTalk AlimTalk via a single HTTP API — from **anywhere in the world**.
 > Hosted and operated by [Textory](https://textory.io).
 
+**English** · [한국어](./README.ko.md)
+
 **🌏 Global developers — start with `/messages/phone`.** The Phone channel works in every country
 because it sends through the Textory Android app paired to your account, using the device's
 own carrier connection. No region restriction, no pre-registered sender number required.
