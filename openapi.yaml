@@ -319,6 +319,7 @@ paths:
                           properties:
                             attachmentId: { type: string, example: "a1b2c3d4e5f6" }
                             url: { type: string, example: "https://files.textory.io/images/68f2.../a1b2c3d4e5f6.jpg" }
+                            type: { type: string, example: "image/jpeg" }
                             size: { type: integer, example: 123456 }
                             filename: { type: string, example: "photo.jpg" }
                       totalBytes: { type: integer, example: 123456 }
@@ -399,6 +400,13 @@ components:
                 format: uri
                 description: URL returned by `/openapi/v1/attachments` (must be on files.textory.io).
                 example: "https://files.textory.io/images/68f2.../a1b2c3d4.jpg"
+              type:
+                type: string
+                description: |
+                  MIME type of the attachment. Pass through the `type` field
+                  returned by `/openapi/v1/attachments` verbatim. The server
+                  defaults to `image/jpeg` when omitted.
+                example: "image/jpeg"
         reservedAt:
           type: string
           format: date-time

@@ -74,7 +74,7 @@ curl -X POST https://openapi.textory.io/openapi/v1/attachments \
 #   "success": true,
 #   "data": {
 #     "attachments": [
-#       { "attachmentId": "a1b2...", "url": "https://files.textory.io/images/<uid>/a1b2.jpg", "size": 87234, "filename": "photo.jpg" }
+#       { "attachmentId": "a1b2...", "url": "https://files.textory.io/images/<uid>/a1b2.jpg", "type": "image/jpeg", "size": 87234, "filename": "photo.jpg" }
 #     ],
 #     "totalBytes": 87234,
 #     "count": 1
@@ -91,7 +91,7 @@ curl -X POST https://openapi.textory.io/openapi/v1/messages/web \
     "contents": "사진을 확인해 주세요.",
     "title": "배송 확인",
     "attachments": [
-      { "url": "https://files.textory.io/images/<uid>/a1b2.jpg" }
+      { "url": "https://files.textory.io/images/<uid>/a1b2.jpg", "type": "image/jpeg" }
     ]
   }'
 ```
